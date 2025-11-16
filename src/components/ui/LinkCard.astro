@@ -1,4 +1,10 @@
-<script>
+---
+import { withBasePath } from '@/utils/base-path'
+
+const proxyEndpoint = withBasePath('/api/proxy')
+---
+
+<script is:inline define:vars={{ proxyEndpoint }}>
   import type { LinkCardMetadata } from '@/types'
 
   let linkCardsObserver: IntersectionObserver | null = null
@@ -13,7 +19,7 @@
 
     try {
       // Use our own proxy API
-      const proxyUrl = `/api/proxy?url=${encodeURIComponent(url)}`
+      const proxyUrl = `${proxyEndpoint}?url=${encodeURIComponent(url)}`
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 3000) // 3 second timeout
 

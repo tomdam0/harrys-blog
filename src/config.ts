@@ -4,9 +4,9 @@ export const themeConfig: ThemeConfig = {
   // SITE INFO ///////////////////////////////////////////////////////////////////////////////////////////
   site: {
     website: 'https://tomdam0.github.io/harrys-blog/', // Site domain
-    title: 'CHIRI', // Site title
-    author: '3ASH', // Author name
-    description: 'Minimal blog built by Astro', // Site description
+    title: 'Harry\'s Blog', // Site title
+    author: 'Harry', // Author name
+    description: 'Blog', // Site description
     language: 'en-US' // Default language
   },
 

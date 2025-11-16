@@ -3,28 +3,31 @@
 // all pages through the use of the <BaseHead /> component.
 import { themeConfig } from '@/config'
 import type { BaseHeadProps } from '@/types/component.types'
+import { toAbsoluteUrl, withBasePath } from '@/utils/base-path'
+import interFontUrl from '@/assets/fonts/Inter.woff2'
+import besleyItalicFontUrl from '@/assets/fonts/Besley-Italic.woff2'
 import 'katex/dist/katex.min.css'
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const canonicalURL = Astro.url
 
 const { title, description, ogImage } = Astro.props as BaseHeadProps
-const imageUrl = ogImage ? new URL(ogImage, Astro.url) : new URL('/og/chiri-og.png', Astro.url)
+const imageUrl = ogImage ? toAbsoluteUrl(ogImage) : toAbsoluteUrl('og/chiri-og.png')
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-<link rel="preload" href="/fonts/Inter.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+<link rel="icon" type="image/svg+xml" href={withBasePath('/favicon.svg')} />
+<link rel="apple-touch-icon" href={withBasePath('/apple-touch-icon.png')} />
+<link rel="preload" href={interFontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
 <link
   rel="preload"
-  href="/fonts/Besley-Italic.woff2"
+  href={besleyItalicFontUrl}
   as="font"
   type="font/woff2"
   crossorigin="anonymous"
 />
-<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="sitemap" href={withBasePath('/sitemap-index.xml')} />
 <link
   rel="alternate"
   type="application/rss+xml"

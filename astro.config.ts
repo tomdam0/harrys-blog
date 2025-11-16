@@ -16,9 +16,21 @@ import { imageConfig } from './src/utils/image-config'
 import path from 'path'
 import netlify from '@astrojs/netlify'
 
+const fallbackSite = 'http://localhost/'
+const siteUrl = (() => {
+  try {
+    return new URL(themeConfig.site.website || fallbackSite)
+  } catch {
+    return new URL(fallbackSite)
+  }
+})()
+const basePath =
+  siteUrl.pathname === '/' ? '/' : siteUrl.pathname.replace(/\/$/, '') || '/'
+
 export default defineConfig({
   adapter: netlify(), // Set adapter for deployment, or set `linkCard` to `false` in `src/config.ts`
   site: themeConfig.site.website,
+  base: basePath,
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp',

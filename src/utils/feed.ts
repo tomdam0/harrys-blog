@@ -7,6 +7,7 @@ import { parse as htmlParser } from 'node-html-parser'
 import sanitizeHtml from 'sanitize-html'
 import { themeConfig } from '@/config'
 import path from 'node:path'
+import { toAbsoluteUrl } from '@/utils/base-path'
 
 const markdownParser = new MarkdownIt({
   html: true,
@@ -167,7 +168,7 @@ export async function generateRSS(context: APIContext) {
     .rss2()
     .replace(
       '<?xml version="1.0" encoding="utf-8"?>',
-      '<?xml version="1.0" encoding="utf-8"?>\n<?xml-stylesheet type="text/xsl" href="/feeds/rss-style.xsl"?>'
+      `<?xml version="1.0" encoding="utf-8"?>\n<?xml-stylesheet type="text/xsl" href="${toAbsoluteUrl('feeds/rss-style.xsl')}"?>`
     )
   return new Response(rssXml, {
     headers: { 'Content-Type': 'application/rss+xml; charset=utf-8' }
@@ -183,7 +184,7 @@ export async function generateAtom(context: APIContext) {
     .atom1()
     .replace(
       '<?xml version="1.0" encoding="utf-8"?>',
-      '<?xml version="1.0" encoding="utf-8"?>\n<?xml-stylesheet type="text/xsl" href="/feeds/atom-style.xsl"?>'
+      `<?xml version="1.0" encoding="utf-8"?>\n<?xml-stylesheet type="text/xsl" href="${toAbsoluteUrl('feeds/atom-style.xsl')}"?>`
     )
   return new Response(atomXml, {
     headers: { 'Content-Type': 'application/atom+xml; charset=utf-8' }

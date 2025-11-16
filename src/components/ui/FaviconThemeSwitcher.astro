@@ -1,4 +1,10 @@
-<script is:inline>
+---
+import { withBasePath } from '@/utils/base-path'
+
+const faviconPath = withBasePath('/favicon.svg')
+---
+
+<script is:inline define:vars={{ faviconPath }}>
   // Favicon theme switcher for system theme-based favicon updates, using external SVG file
   class FaviconThemeSwitcher {
     constructor() {
@@ -13,7 +19,7 @@
       }
 
       this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-      this.svgUrl = '/favicon.svg'
+      this.svgUrl = faviconPath
       this.currentColor = null
       this.svgContent = null
 
